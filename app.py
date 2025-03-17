@@ -1,13 +1,13 @@
 import streamlit as st
 import joblib
 import numpy as np
-model = joblib.load(r"C:\Users\tanuj\OneDrive\Desktop\DS_assignment\Logistic_regression.joblib")
+import os 
 
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "Logistic_regression.joblib")
+model = joblib.load(MODEL_PATH)
 
-# Streamlit UI
 st.title("Diabetes Prediction App")
 
-# User input fields
 pregnancies = st.number_input("Pregnancies", min_value=0)
 glucose = st.number_input("Glucose Level", min_value=0)
 blood_pressure = st.number_input("Blood Pressure", min_value=0)
@@ -17,7 +17,7 @@ bmi = st.number_input("BMI", min_value=0.0)
 dpf = st.number_input("Diabetes Pedigree Function", min_value=0.0)
 age = st.number_input("Age", min_value=0)
 
-# Prediction button
+
 if st.button("Predict"):
     input_data = np.array([pregnancies, glucose, blood_pressure, skin_thickness, insulin, bmi, dpf, age]).reshape(1, -1)
     prediction = model.predict(input_data)[0]
